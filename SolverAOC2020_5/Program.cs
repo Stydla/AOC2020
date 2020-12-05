@@ -18,19 +18,10 @@ namespace SolverAOC2020_5
     public override string SolveTask1(string InputData)
     {
       var lines = ReadInput(InputData);
-
-      int max = 0;
-      foreach(var line in lines)
-      {
-        int id = GetId(line);
-        if(id > max)
-        {
-          max = id;
-        }
-      }
+      var ids = lines.Select(x => GetId(x)).ToList();
+      int max = ids.Max();
 
       return $"{max}";
-
     }
 
     public override string SolveTask2(string InputData)
