@@ -32,11 +32,6 @@ namespace SolverAOC2020_4
 
       var validPassports = passports.Where(x => x.IsValidValues());
 
-      foreach(var vp in validPassports)
-      {
-        vp.Print();
-      }
-
       return $"{validPassports.Count()}";
     }
 
@@ -48,18 +43,22 @@ namespace SolverAOC2020_4
       using (StringReader ss = new StringReader(InputData))
       {
 
-        Passport currentPassport = new Passport(); ;
-        ret.Add(currentPassport);
-
+        Passport currentPassport = null;
+        
         string line;
         while ((line = ss.ReadLine()) != null)
         {
           if (line.Length == 0)
           {
             // next passport
-            currentPassport = new Passport(); ;
+            currentPassport = new Passport();
             ret.Add(currentPassport);
             continue;
+          }
+          if(currentPassport == null)
+          {
+            currentPassport = new Passport();
+            ret.Add(currentPassport);
           }
 
           string [] items = line.Split(' ');
