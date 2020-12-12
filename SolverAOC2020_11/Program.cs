@@ -46,11 +46,6 @@ namespace SolverAOC2020_11
       while (changed)
       {
         data = NextRound2(data, ref changed);
-        foreach (var d in data)
-        {
-          Console.WriteLine(d);
-        }
-        Console.WriteLine();
       }
 
       int cnt = 0;
