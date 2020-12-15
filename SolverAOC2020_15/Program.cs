@@ -67,6 +67,11 @@ namespace SolverAOC2020_15
       public int last = -1;
       public int lastlast = -1;
       public int value;
+
+      public override string ToString()
+      {
+        return $"{value}   {last}|{lastlast}";
+      }
     }
 
 
@@ -92,67 +97,53 @@ namespace SolverAOC2020_15
       int numberCount = 30000000;
 
       List<int> data = LoadData(InputData);
-      Dictionary<int,SpokenData2> spokenData = new Dictionary<int, SpokenData2>();
+
+
+      List<SpokenData2> spokenData = new List<SpokenData2>();
+      List<int> array = new List<int>(new int[numberCount]);
 
       for (int i = 0; i < data.Count; i++)
       {
         var tmp = new SpokenData2();
         tmp.value = data[i];
         tmp.last = i;
-        spokenData.Add(tmp.value, tmp);
+        spokenData.Add(tmp);
+        array[tmp.value] = spokenData.Count;
       }
 
-      int prevVal = spokenData[data[data.Count - 1]].value;
+      int prevVal = spokenData[array[data[data.Count - 1]]-1].value;
       for (int i = data.Count; i < numberCount; i++)
       {
-        if(spokenData.ContainsKey(prevVal))
+        
+        SpokenData2 sd = spokenData[array[prevVal]-1];
+        if (sd.lastlast == -1)
         {
-          SpokenData2 sd = spokenData[prevVal];
-          if(sd.lastlast == -1)
-          {
-            int val2 = 0;
-            if (spokenData.ContainsKey(val2))
-            {
-              spokenData[val2].lastlast = spokenData[val2].last;
-              spokenData[val2].last = i;
-              prevVal = spokenData[val2].value;
-            }
-            else
-            {
-              SpokenData2 tmp = new SpokenData2();
-              tmp.last = i;
-              tmp.value = val2;
-              spokenData.Add(tmp.value, tmp);
-              prevVal = val2;
-            }
-          } else
-          {
-            int val2 = sd.last - sd.lastlast;
-            if(spokenData.ContainsKey(val2))
-            {
-              spokenData[val2].lastlast = spokenData[val2].last;
-              spokenData[val2].last = i;
-              prevVal = spokenData[val2].value;
-            } else
-            {
-              SpokenData2 tmp = new SpokenData2();
-              tmp.last = i;
-              tmp.value = val2;
-              spokenData.Add(tmp.value, tmp);
-              prevVal = tmp.value;
-            }
-            
-          }
-          
-        } else
-        {
-          var tmp = new SpokenData2();
-          tmp.value = data[i];
+          SpokenData2 tmp = spokenData[array[0]-1];
+          tmp.lastlast = tmp.last;
           tmp.last = i;
-          tmp.lastlast = -1;
-          spokenData.Add(i,tmp);
+          prevVal = tmp.value;
         }
-       
+        else
+        {
+          int val2 = sd.last - sd.lastlast;
+          if (array[val2] != 0)
+          {
+            SpokenData2 tmp = spokenData[array[val2]-1];
+            tmp.lastlast = tmp.last;
+            tmp.last = i;
+            prevVal = tmp.value;
+          }
+          else
+          {
+            SpokenData2 tmp = new SpokenData2();
+            tmp.last = i;
+            tmp.value = val2;
+            spokenData.Add(tmp);
+            array[tmp.value] = spokenData.Count;
+            prevVal = tmp.value;
+          }
+
+        }
 
       }
 
