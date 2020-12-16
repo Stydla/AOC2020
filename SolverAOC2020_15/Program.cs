@@ -1,6 +1,7 @@
 ﻿using Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -93,7 +94,6 @@ namespace SolverAOC2020_15
 
     public override string SolveTask2(string InputData)
     {
-
       int numberCount = 30000000;
 
       List<int> data = LoadData(InputData);
@@ -146,7 +146,6 @@ namespace SolverAOC2020_15
         }
 
       }
-
       return $"{prevVal}";
     }
   }
