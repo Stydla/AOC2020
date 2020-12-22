@@ -133,7 +133,7 @@ namespace SolverAOC2020_22
 
     }
 
-    private int GetWinnerNumber()
+    public int GetWinnerNumber()
     {
       var playersWithCards = Players.Where(x => x.HasCards());
       if (playersWithCards.Count() != 1)

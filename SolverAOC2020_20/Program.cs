@@ -19,8 +19,10 @@ namespace SolverAOC2020_20
 
       Data data = new Data(InputData);
       data.CreateAllTiles();
+      int edgesCnt = data.DistinctEdgesCount();
       data.Solve();
       data.CreateGrid();
+
 
       long res = data.CornersMultiply();
 

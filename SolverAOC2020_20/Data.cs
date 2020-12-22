@@ -221,6 +221,56 @@ namespace SolverAOC2020_20
       }
     }
 
+    public int DistinctEdgesCount()
+    {
+      List<string> edges = new List<string>();
+      foreach(Tile t in Tiles)
+      {
+        StringBuilder sb = new StringBuilder();
+        foreach (char c in t.Fields[0])
+        {
+          sb.Append(c);
+        }
+        edges.Add(sb.ToString());
+        edges.Add(Reverse(sb.ToString()));
+        sb.Clear();
+
+        foreach (char c in t.Fields[t.Fields.Count - 1])
+        {
+          sb.Append(c);
+        }
+        edges.Add(sb.ToString());
+        edges.Add(Reverse(sb.ToString()));
+        sb.Clear();
+
+        for(int i = 0; i< t.Fields.Count; i++)
+        {
+          char c = t.Fields[i][0];
+          sb.Append(c);
+        }
+        edges.Add(sb.ToString());
+        edges.Add(Reverse(sb.ToString()));
+        sb.Clear();
+
+        for (int i = 0; i < t.Fields.Count; i++)
+        {
+          char c = t.Fields[i][t.Fields.Count-1];
+          sb.Append(c);
+        }
+        edges.Add(sb.ToString());
+        edges.Add(Reverse(sb.ToString()));
+        sb.Clear();
+      }
+      return edges.Distinct().Count();
+    }
+
+    public static string Reverse(string s)
+    {
+      char[] charArray = s.ToCharArray();
+      Array.Reverse(charArray);
+      return new string(charArray);
+    }
+
     public List<Tile> CreateAllTiles(Tile t)
     {
       List<Tile> ret = new List<Tile>();
