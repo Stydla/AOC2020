@@ -25,7 +25,7 @@ namespace SolverAOC2020_25
 
     public override string SolveTask2(string InputData)
     {
-      return "OK";
+      return "";
     }
   }
 }
